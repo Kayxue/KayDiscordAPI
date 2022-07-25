@@ -3,6 +3,7 @@
 		"@types/node": "^18.0.6",
 		"@types/ws": "^8.5.3",
 		"axios": "^0.27.2",
+		"moment-timezone": "^0.5.34",
 		"ws": "^8.8.1"
 	}
 }

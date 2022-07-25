@@ -1,8 +1,9 @@
 import EventEmitter from "events";
 import WebSocket, { RawData } from "ws";
+import { Message } from "../DiscordTypes/Message";
 import { ClientInitOptions, GatewayIntents, GatewayOpCode } from "../Types";
 
-export default class WebSocketManager extends EventEmitter {
+export default abstract class WebSocketManager extends EventEmitter {
     protected ws: WebSocket;
     public token: string;
     public intents: GatewayIntents[];
@@ -16,7 +17,7 @@ export default class WebSocketManager extends EventEmitter {
         super();
         this.token = options.token;
         this.intents = options.intents;
-        this.intentsNum = options.intents.reduce((sum, now) => sum + now, 0);
+        this.intentsNum = options.intents.reduce((sum, now) => sum | now, 0);
     }
 
     public connect(token?: string) {
@@ -33,7 +34,7 @@ export default class WebSocketManager extends EventEmitter {
 
     private onMessage(rawdata: RawData, isBinary: boolean) {
         const data = JSON.parse(rawdata.toString());
-        //console.log(data);
+        // console.log(data);
         switch (data.op) {
             case GatewayOpCode.HELLO:
                 this.heartBeatInteval ??= data.d.heartbeat_interval;
@@ -64,14 +65,15 @@ export default class WebSocketManager extends EventEmitter {
                 }
                 break;
             case GatewayOpCode.DISPATCH:
-                switch (data.t) {
-                    case "READY":
-                        this.s = data.s;
-                        this.emit("ready");
-                        break;
-                    case "GUILD_CREATE":
-                        this.emit("guildCreate", data.d);
-                }
+                this.handleDispatch(data);
+                break;
         }
+        if (data.s !== null) this.s = data.s;
+    }
+
+    protected abstract handleDispatch(data: any);
+
+    protected setS(value: number) {
+        this.s = value;
     }
 }

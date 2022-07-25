@@ -13,12 +13,12 @@ export class Embed {
     public author?: IAuthor;
     public fields?: IEmbedField[] = [];
 
-    public constructor(embedBase?: Embed) {
+    public constructor(embedBase?: Embed | any) {
         if (embedBase) {
             this.author = embedBase.author;
             this.color = embedBase.color;
             this.description = embedBase.description;
-            this.fields = [...embedBase.fields];
+            this.fields = embedBase.fields ? [...embedBase.fields] : undefined;
             this.footer = embedBase.footer;
             this.image = embedBase.image;
             this.provider = embedBase.provider;

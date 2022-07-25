@@ -36,7 +36,7 @@ export enum GatewayOpCode {
 
 export interface ClientEvents {
     ready: [];
-    message: [Message];
+    messageCreate: [Message];
     guildCreate:[any]
 }
 
