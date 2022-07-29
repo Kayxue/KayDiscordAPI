@@ -27,6 +27,11 @@ export interface ClientInitOptions {
     token?: string;
 }
 
+export interface CommandClientInitOptions extends ClientInitOptions{
+    prefix:string[],
+    directory:string
+}
+
 export enum GatewayOpCode {
     HELLO = 10,
     HEARTBEAT = 1,
@@ -62,3 +67,5 @@ export interface CacheAdapter {
     get(cacheName: string, key: string): any;
     delete(cacheName: string, key: string): any;
 }
+
+

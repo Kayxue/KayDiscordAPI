@@ -1,9 +1,11 @@
 {
 	"dependencies": {
 		"@sapphire/snowflake": "^3.2.2",
+		"@types/glob": "^7.2.0",
 		"@types/node": "^18.0.6",
 		"@types/ws": "^8.5.3",
 		"axios": "^0.27.2",
+		"glob": "^8.0.3",
 		"moment-timezone": "^0.5.34",
 		"ws": "^8.8.1"
 	}

@@ -111,7 +111,7 @@ export class GuildTextBasedChannel extends GuildChannel {
     }
 
     public permissionFor(memberOrRole:any,checkAdmin?:boolean){
-
+        
     }
 
     public async sendTyping(){
