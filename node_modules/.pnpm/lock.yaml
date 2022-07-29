@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@sapphire/snowflake': ^3.2.2
   '@types/node': ^18.0.6
   '@types/ws': ^8.5.3
   axios: ^0.27.2
@@ -8,6 +9,7 @@ specifiers:
   ws: ^8.8.1
 
 dependencies:
+  '@sapphire/snowflake': 3.2.2
   '@types/node': 18.0.6
   '@types/ws': 8.5.3
   axios: 0.27.2
@@ -15,6 +17,11 @@ dependencies:
   ws: 8.8.1
 
 packages:
+
+  /@sapphire/snowflake/3.2.2:
+    resolution: {integrity: sha512-ula2O0kpSZtX9rKXNeQMrHwNd7E4jPDJYUXmEGTFdMRfyfMw+FPyh04oKMjAiDuOi64bYgVkOV3MjK+loImFhQ==}
+    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+    dev: false
 
   /@types/node/18.0.6:
     resolution: {integrity: sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==}

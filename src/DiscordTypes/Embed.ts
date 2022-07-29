@@ -1,9 +1,11 @@
+import moment, { Moment } from "moment-timezone";
+
 export class Embed {
     public title?: string;
     public type?: string;
     public description?: string;
     public url?: string;
-    public timestamp?: any;
+    public timestamp?: Moment;
     public color?: number;
     public footer?: IFooter;
     public image?: IImage;
@@ -23,7 +25,7 @@ export class Embed {
             this.image = embedBase.image;
             this.provider = embedBase.provider;
             this.thumbnail = embedBase.thumbnail;
-            this.timestamp = embedBase.timestamp;
+            this.timestamp = embedBase.timestamp?moment(embedBase.timestamp):null;
             this.title = embedBase.title;
             this.type = embedBase.type;
             this.url = embedBase.url;
@@ -36,7 +38,15 @@ export class Embed {
         return this;
     }
 
-    public setColor(color: number | `#${string}`) {}
+    public setColor(color: number | `#${string}`) {
+        if(typeof color === "number"){
+            this.color=color
+        }else{
+            const col="0x"+color.slice(1)
+            this.color=Number(col)
+        }
+        return this
+    }
 
     public setDescription(description: string) {
         this.description = description;
@@ -87,6 +97,7 @@ export class Embed {
         this.video = {
             url,
         };
+        return this
     }
 
     public setAuthor(
@@ -105,8 +116,8 @@ export class Embed {
         }
     }
 
-    public addField(field: IEmbedField);
-    public addField(name: string, value: string, inline?: boolean);
+    public addField(field: IEmbedField):this;
+    public addField(name: string, value: string, inline?: boolean):this;
     public addField(
         nameOrFieldObj: string | IEmbedField,
         value?: string,
@@ -131,6 +142,24 @@ export class Embed {
             this.fields = [...this.fields, ...(fields as IEmbedField[])];
         }
         return this;
+    }
+
+    public toJSON(){
+        return {
+            title:this.title,
+            type:this.type,
+            description:this.description,
+            url:this.url,
+            timestamp:this.timestamp?.unix(),
+            color:this.color,
+            footer:this.footer,
+            image:this.image,
+            thumbnail:this.thumbnail,
+            video:this.video,
+            provider:this.provider,
+            author:this.author,
+            fields:this.fields
+        }
     }
 }
 

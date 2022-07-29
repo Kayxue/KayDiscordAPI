@@ -2,15 +2,16 @@ import { snowflake } from "../Types";
 import { Embed } from "./Embed";
 import moment, { Moment } from "moment-timezone";
 import { Client } from "../Clients/Client";
+import { GuildTextBasedChannel } from "./GuildTextBasedChannel";
+import BaseChannel from "./Base/BaseChannel";
 
 export class Message {
     public id: snowflake;
-    //TODO:change to channel object
-    public channel_id: string;
+    public channelId: string;
     public author: any;
     public content: string;
     public timestamp: Moment;
-    public edited_timestamp?: Moment;
+    public editedTimestamp?: Moment;
     public tts: boolean;
     public mentionEveryone: boolean;
     public mentionUsers: any[];
@@ -43,7 +44,7 @@ export class Message {
         this.type = data.type;
         this.tts = data.tts;
         this.timestamp = moment(data.timestamp);
-        this.edited_timestamp = data.edited_timestamp
+        this.editedTimestamp = data.edited_timestamp
             ? moment(data.edited_timestamp)
             : undefined;
         this.referencedMessage = data.referenced_message
@@ -56,6 +57,8 @@ export class Message {
         this.mentionUsers = data.mentions;
         //TODO: change to role object
         this.mentionRoles = data.mention_roles;
+        //TODO: regex to find mention channel in message
+        this.mentionChannels = data.mentionChannels;
         this.mentionEveryone = data.mention_everyone;
         //TODO: change to member object
         this.member = data.member;
@@ -66,7 +69,7 @@ export class Message {
         //TODO: change to component object
         this.components = data.components;
         //TODO: add channel object
-        this.channel_id = data.channel_id;
+        this.channelId = data.channel_id;
         //TODO: change to user object
         this.author = data.author;
         //TODO: add guild object
@@ -211,22 +214,41 @@ export class Message {
 
     public async crosspost() {
         //TODO 進階處理
-        return await this.client.requester.crosspostMessage(this.channel_id, this.id);
+        return await this.client.requester.crosspostMessage(
+            this.channelId,
+            this.id,
+        );
     }
 
     public async delete() {
         //TODO 進階處理
-        return await this.client.requester.deleteMessage(this.channel_id, this.id);
+        return await this.client.requester.deleteMessage(
+            this.channelId,
+            this.id,
+        );
     }
 
-    public async fetch(){
-        //TODO 進階處理
-        return await this.client.requester.getMessage(this.channel_id,this.id)
+    public async fetch() {
+        return new Message(
+            this.client,
+            await this.client.requester.getMessage(this.channelId, this.id),
+        );
     }
 
-    public async react(emoji:string){
+    public async react(emoji: string) {
         //TODO 進階處理
-        return await this.client.requester.react(this.channel_id,this.id,emoji)
+        return await this.client.requester.react(
+            this.channelId,
+            this.id,
+            emoji,
+        );
+    }
+
+    public get channel() {
+        const channelFromCache = this.client.cacheManager.getChannel(
+            this.channelId,
+        );
+        return channelFromCache ?? null;
     }
 }
 

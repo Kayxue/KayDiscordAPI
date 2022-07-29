@@ -37,7 +37,28 @@ export enum GatewayOpCode {
 export interface ClientEvents {
     ready: [];
     messageCreate: [Message];
-    guildCreate:[any]
+    guildCreate: [any];
 }
 
 export type snowflake = string;
+
+export enum channelTypes {
+    GUILD_TEXT = 0,
+    DM,
+    GUILD_VOICE,
+    GROUP_DM,
+    GUILD_CATEGORY,
+    GUILD_NEWS,
+    GUILD_NEWS_THREAD = 10,
+    GUILD_PUBLIC_THREAD,
+    GUILD_PRIVATE_THREAD,
+    GUILD_STAGE_THREAD,
+    GUILD_DIRECTORY,
+    GUILD_FORUM,
+}
+
+export interface CacheAdapter {
+    set(cacheName: string, key: string, data: any): any;
+    get(cacheName: string, key: string): any;
+    delete(cacheName: string, key: string): any;
+}
