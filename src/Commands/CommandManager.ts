@@ -13,7 +13,7 @@ export class CommandManager<T extends Client> {
     public commandCategories = new Map<string, string[]>();
     public categoryInfo = new Map<string, ICategory>();
     public client: T;
-    public directory:string
+    public directory: string;
 
     public constructor(client: T) {
         this.client = client;
@@ -35,14 +35,23 @@ export class CommandManager<T extends Client> {
                     const eventMethodKeys = propertyNames.filter((e) =>
                         e.startsWith("onEvent"),
                     );
-                    this.commandCategories.set(cmdOrCog.name, []);
+                    this.commandCategories.set(
+                        cmdOrCogClass.cogInfo.name ?? cmdOrCog.name,
+                        [],
+                    );
+                    if(cmdOrCogClass.cogInfo){
+                        this.categoryInfo.set(cmdOrCogClass.cogInfo.name,cmdOrCogClass.cogInfo)
+                    }
                     for (const command of commandMethodKeys) {
                         const cmdInfo = cmdOrCogClass[command]();
                         const binedMethod = cmdInfo.run.bind(cmdOrCogClass);
                         const toPush: ICommand = {
-                            getInfo() {
+                            getInfo(): ICommandInfo {
                                 return {
                                     name: cmdInfo.name,
+                                    description: cmdInfo.description,
+                                    aliases: cmdInfo.aliases,
+                                    usage: cmdInfo.usage,
                                 };
                             },
                             async handle(message, args) {
@@ -64,6 +73,38 @@ export class CommandManager<T extends Client> {
                     }
                 } else if (cmdOrCogClass instanceof Command) {
                     const cmdInfo = cmdOrCogClass.getInfo();
+                    if (cmdInfo.category) {
+                        if (typeof cmdInfo.category === "string") {
+                            if (!this.commandCategories.has(cmdInfo.category)) {
+                                this.commandCategories.set(cmdInfo.category, [
+                                    cmdInfo.name,
+                                ]);
+                            } else {
+                                this.commandCategories
+                                    .get(cmdInfo.category)
+                                    .push(cmdInfo.name);
+                            }
+                        } else {
+                            if (
+                                !this.commandCategories.has(
+                                    cmdInfo.category.name,
+                                )
+                            ) {
+                                this.commandCategories.set(
+                                    cmdInfo.category.name,
+                                    [cmdInfo.name],
+                                );
+                            } else {
+                                this.commandCategories
+                                    .get(cmdInfo.category.name)
+                                    .push(cmdInfo.name);
+                            }
+                            this.categoryInfo.set(
+                                cmdInfo.category.name,
+                                cmdInfo.category,
+                            );
+                        }
+                    }
                     this.commandsCollection.set(cmdInfo.name, cmdOrCogClass);
                     if (cmdInfo.aliases) {
                         for (const aliase of cmdInfo.aliases) {
@@ -74,6 +115,38 @@ export class CommandManager<T extends Client> {
                     if (!this.isCommand(cmdOrCog))
                         throw new Error("This class is not a command or cog!");
                     const cmdInfo: ICommandInfo = cmdOrCogClass.getInfo();
+                    if (cmdInfo.category) {
+                        if (typeof cmdInfo.category === "string") {
+                            if (!this.commandCategories.has(cmdInfo.category)) {
+                                this.commandCategories.set(cmdInfo.category, [
+                                    cmdInfo.name,
+                                ]);
+                            } else {
+                                this.commandCategories
+                                    .get(cmdInfo.category)
+                                    .push(cmdInfo.name);
+                            }
+                        } else {
+                            if (
+                                !this.commandCategories.has(
+                                    cmdInfo.category.name,
+                                )
+                            ) {
+                                this.commandCategories.set(
+                                    cmdInfo.category.name,
+                                    [cmdInfo.name],
+                                );
+                            } else {
+                                this.commandCategories
+                                    .get(cmdInfo.category.name)
+                                    .push(cmdInfo.name);
+                            }
+                            this.categoryInfo.set(
+                                cmdInfo.category.name,
+                                cmdInfo.category,
+                            );
+                        }
+                    }
                     this.commandsCollection.set(cmdInfo.name, cmdOrCogClass);
                     if (cmdInfo.aliases) {
                         for (const aliase of cmdInfo.aliases) {

@@ -8,6 +8,10 @@ export interface ICommandInfo {
     category?: string | ICategory;
 }
 
+export interface IDecoratorCommandInfo extends Omit<ICommandInfo,"name"|"category">{
+    name?:string
+}
+
 export interface ICategory {
     name: string;
     description: string;

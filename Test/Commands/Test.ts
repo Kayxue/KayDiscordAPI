@@ -5,9 +5,16 @@ import { GuildTextBasedChannel } from "../../src/DiscordTypes/GuildTextBasedChan
 import { Message } from "../../src/DiscordTypes/Message";
 
 export default class Test extends Cog<CommandClient>{
+    public constructor(client:CommandClient){
+        super(client,{
+            name:"Test",
+            description:"Test Category"
+        })
+    }
+    
     @command()
     public async hi(message:Message,args:string){
-        return (message.channel as GuildTextBasedChannel).send("Hello")
+        console.log(this.client)
     }
 
     @once
