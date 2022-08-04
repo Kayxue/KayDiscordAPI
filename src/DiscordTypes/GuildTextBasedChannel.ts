@@ -94,37 +94,54 @@ export class GuildTextBasedChannel extends GuildChannel {
         }
     }
 
-    public async delete(){
-        return await this.client.requester.deleteChannel(this.id)
+    public async delete() {
+        return await this.client.requester.deleteChannel(this.id);
     }
 
-    public async edit(data:any){
-        return await this.client.requester.editChannel(this.id,data)
+    public async edit(data: any) {
+        return await this.client.requester.editChannel(this.id, data);
     }
 
-    public async fetchInvites(cache?:boolean){
-        return await this.client.requester.getChannelInvites(this.id)
+    public async fetchInvites(cache?: boolean) {
+        return await this.client.requester.getChannelInvites(this.id);
     }
 
-    public async fetchWebhooks(){
-        
+    public async fetchWebhooks() {}
+
+    public permissionFor(memberOrRole: any, checkAdmin?: boolean) {}
+
+    public async sendTyping() {
+        await this.client.requester.TriggerTyping(this.id);
     }
 
-    public permissionFor(memberOrRole:any,checkAdmin?:boolean){
-        
+    public async setDefaultAutoArchiveDuration() {}
+
+    public async setName(name: string, reason: string) {
+        return await this.client.requester.editChannel(this.id, {
+            name,
+            reason,
+        });
     }
 
-    public async sendTyping(){
-        await this.client.requester.TriggerTyping(this.id)
+    public async setNSFW(enabled?: boolean, reason?: string) {
+        return await this.client.requester.editChannel(this.id, {
+            reason,
+            nsfw: enabled,
+        });
     }
 
-    public async setDefaultAutoArchiveDuration(){
+    public async setParent(category: any, options?: any) {}
 
-    }
+    public async setPosition(position: number, options?: any) {}
 
-    public async setName(name:string,reason:string){
-        return await this.client.requester.editChannel(this.id,{name,reason})
-    }
+    public async setRateLimitPerUser(
+        rateLimitPerUser: number,
+        reason: string,
+    ) {}
+
+    public async setTopic(topic?: string, reason?: string) {}
+
+    public async setType(type: number, reason?: string) {}
 }
 
 export interface MessageOptions {

@@ -68,4 +68,42 @@ export interface CacheAdapter {
     delete(cacheName: string, key: string): any;
 }
 
+export enum DefaultMessageNotificationLevel{
+    ALL_MESSAGES=0,
+    ONLY_MENTIONS
+}
+
+export enum ExplicitContentFilterLevel{
+    DISABLED=0,
+    MEMBERS_WITHOUT_ROLES,
+    ALL_MEMBERS
+}
+
+export enum MFALevel{
+    NONE=0,
+    ELEVATED
+}
+
+export enum VerificationLevel{
+    NONE=0,
+    LOW,
+    MEDIUM,
+    HIGH,
+    VERY_HIGH
+}
+
+export enum GuildNSFWLevel{
+    DEFAULT=0,
+    EXPLICIT,
+    SAFE,
+    AGE_RESTRICTED
+}
+
+export enum PremiumTier{
+    NONE=0,
+    TIER_1,
+    TIER_2,
+    TIER_3
+}
+
 
