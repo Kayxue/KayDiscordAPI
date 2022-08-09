@@ -40,10 +40,9 @@ export class Embed {
 
     public setColor(color: number | `#${string}`) {
         if(typeof color === "number"){
-            this.color=color
+            this.color = color
         }else{
-            const col="0x"+color.slice(1)
-            this.color=Number(col)
+            this.color = parseInt(color.slice(1), 16)
         }
         return this
     }
@@ -198,7 +197,7 @@ export interface IAuthor {
     name: string;
     url?: string;
     icon_url?: string;
-    procy_icon_url?: string;
+    proxy_icon_url?: string;
 }
 
 export interface IEmbedField {
