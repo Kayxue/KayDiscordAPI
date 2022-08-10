@@ -39,7 +39,7 @@ Because I like new usage of Discord.js v12, and also thinks that some Discord.js
 - [ ] Guild Scheduled Event
 - [ ] Guild Template
 - [ ] Invite
-- [ ] Stage Instance
+- [ ] Stage
 - [ ] Sticker
 - [ ] User
 - [ ] Voice
