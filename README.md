@@ -7,53 +7,53 @@ Because I like new usage of Discord.js v12, and also thinks that some Discord.js
 
 ## TODO
 ### Endpoints
-- [] Application
-- [] Audit Log
-- [] Auto Moderation
+- [ ] Application
+- [ ] Audit Log
+- [ ] Auto Moderation
 - [X] Channel
-- [] Emoji
+- [ ] Emoji
 - [X] Guild
-- [] Guild Scheduled Event
-- [] Guild Template
-- [] Invite
-- [] Stage Instance
-- [] Sticker
-- [] User
-- [] Voice
-- [] Webhook
+- [ ] Guild Scheduled Event
+- [ ] Guild Template
+- [ ] Invite
+- [ ] Stage Instance
+- [ ] Sticker
+- [ ] User
+- [ ] Voice
+- [ ] Webhook
 ### Interaction
-- [] ApplicationCommand
-- [] MessageComponents
-- [] InteractionResponse
-- [] Model
+- [ ] ApplicationCommand
+- [ ] MessageComponents
+- [ ] InteractionResponse
+- [ ] Model
 ### Structures
-- [] Application
-- [] Audit Log
-- [] Auto Moderation
-- [] Channel
-- [] Emoji
+- [ ] Application
+- [ ] Audit Log
+- [ ] Auto Moderation
+- [ ] Channel
+- [ ] Emoji
 - [X] Embed
-- [] Message
-- [] Member
-- [] Guild
-- [] Guild Scheduled Event
-- [] Guild Template
-- [] Invite
-- [] Stage Instance
-- [] Sticker
-- [] User
-- [] Voice
-- [] Webhook
+- [ ] Message
+- [ ] Member
+- [ ] Guild
+- [ ] Guild Scheduled Event
+- [ ] Guild Template
+- [ ] Invite
+- [ ] Stage Instance
+- [ ] Sticker
+- [ ] User
+- [ ] Voice
+- [ ] Webhook
 
 ### Base and Somethings
-- [] Events
-- [] Reconnect
-- [] Gateway
-- [] Voice
+- [ ] Events
+- [ ] Reconnect
+- [ ] Gateway
+- [ ] Voice
 
 ### Command
 - [X] Command Loading
 - [X] Command Abstract Class
 - [X] Command Interface
 - [X] Command Cog Decorators
-- [] CommandPermissionCheck
+- [ ] CommandPermissionCheck
